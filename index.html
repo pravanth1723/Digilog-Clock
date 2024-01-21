@@ -93,6 +93,7 @@
 #hr2txt{
     /* width: 120px; */
      font-size: 18px;
+     /* background-position-x:45% ; */
 }
 }
     
@@ -153,7 +154,7 @@
         var sec = x.getSeconds();
 
         if (hr >= 5 && hr <= 11) {
-            document.getElementById('time').style.backgroundImage = "url(morning.jpg)";
+            document.getElementById('time').style.backgroundImage = "url(morning.png)";
             document.getElementById('min1txt').style.color = "red";
             document.getElementById('hr1txt').style.color = "red";
             document.getElementById('min2txt').style.color = "red";
@@ -169,7 +170,7 @@
             document.getElementById('sec2txt').style.color = "rgb(255,255,255,0.7)";
             document.getElementById('greetings').textContent = " Hello, Good Afternoon !!!";
             document.getElementById('greetings').style.top = "70vh";
-            document.getElementById('time').style.backgroundImage = "url(afternoon.jpg)";
+            document.getElementById('time').style.backgroundImage = "url(afternoon.png)";
         }
         else if (hr > 16 && hr < 19) {
             document.getElementById('sec1txt').style.color = "rgb(255,255,255,0.7)";
@@ -178,10 +179,12 @@
             document.getElementById('greetings').style.top = "75vh";
             document.getElementById('greetings').style.color = "white";
             document.getElementById('v').style.background="white";
-            document.getElementById('time').style.backgroundImage = "url(evening.jpg)";
+            document.getElementById('time').style.backgroundImage = "url(evening.png)";
+            if(window.matchMedia("(max-width: 450px)").matches)
+                document.getElementById('time').style.backgroundPositionX="90%";
         }
         else {
-            document.getElementById('time').style.backgroundImage = "url(Night.png)";
+            document.getElementById('time').style.backgroundImage = "url(night.png)";
             document.getElementById('sec1txt').style.color = "rgb(255,255,255,0.5)";
             document.getElementById('sec2txt').style.color = "rgb(255,255,255,0.5)";
             document.getElementById('time').style.color = "rgb(255,255,255,0.9)";
@@ -192,6 +195,8 @@
             document.getElementById('min2txt').style.color = "yellow";
             document.getElementById('hr2txt').style.color = "yellow";
             document.getElementById('greetings').style.top = "72vh";
+            if(window.matchMedia("(max-width: 450px)").matches)
+                document.getElementById('time').style.backgroundPositionX="right";
 
         }
 
