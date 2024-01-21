@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="refresh" content="1"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiLog Clock</title>
+</head>
+<style>
+    .time {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6));
+        background-repeat: no-repeat;
+        background-size: cover;
+        /* background-attachment: fixed; */
+        background-position: center;
+    }
+
+    * {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 25px;
+    }
+
+    #sec1txt,
+    #min1txt,
+    #hr1txt {
+        position: absolute;
+        left: 50vw;
+        transform-origin: left center;
+        top: 35vh;
+        width: 150px;
+        padding-left: 5px;
+        margin: 2px;
+        width: fit-content;
+    }
+
+    #sec2txt,
+    #min2txt,
+    #hr2txt {
+        /* background: red; */
+        position: absolute;
+        right: 50vw;
+        transform-origin: right center;
+        top: 35vh;
+        width: 150px;
+        padding-right: 5px;
+        margin: 2px;
+        width: fit-content;
+    }
+
+    #greetings {
+        position: absolute;
+        display: block;
+        width: 100vw;
+        text-align: center;
+        font-size: 40px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    #v,
+    #btn {
+        position: absolute;
+        background: white;
+        padding: 2px;
+        border-radius: 5px;
+    }
+
+     @media only screen and (max-width: 450px) {
+
+        #sec1txt,
+        #min1txt,
+        #hr1txt ,
+        #sec2txt,
+        #min2txt,
+        #hr2txt{
+            /* width: 120px; */
+             font-size: 15px;
+        }
+    }
+    @media only screen and (max-width: 500px) {
+
+#sec1txt,
+#min1txt,
+#hr1txt ,
+#sec2txt,
+#min2txt,
+#hr2txt{
+    /* width: 120px; */
+     font-size: 18px;
+}
+}
+    
+</style>
+
+<body>
+
+    <div class="time" id="time">
+        <p id="greetings"></p>
+        <div class="box">
+
+            <p id="hr1txt">
+            </p>
+            <p id="hr2txt">
+            </p>
+            <p id="min1txt">
+            </p>
+            <p id="min2txt">
+            </p>
+            <p id="sec1txt">
+            </p>
+            <p id="sec2txt">
+            </p>
+        </div>
+    </div>
+    <audio controls loop autoplay id="backgroundMusic">
+        <source src="tick.mp3" type="audio/mp3">
+
+    </audio>
+    <div class="pic">
+
+        <img src="volume-mute.png" alt="sound-on" height="27px" width="27px" top="10px" left="10px" id="v"
+            onclick="sound()">
+    </div>
+
+</body>
+<script>
+    document.getElementById('backgroundMusic').style.display = "none";
+    setInterval(myTimer, 1000);
+
+    function sound() {
+        if (!document.getElementById('backgroundMusic').paused) {
+
+            document.getElementById('v').src = "volume-mute.png";
+            document.getElementById('backgroundMusic').pause();
+        }
+        else {
+            document.getElementById('v').src = "volume.png";
+            document.getElementById('backgroundMusic').play();
+        }
+    }
+    var firsttime = 1;
+    function myTimer() {
+
+        var x = new Date();
+        var hr = x.getHours();//
+        var min = x.getMinutes();
+        var sec = x.getSeconds();
+
+        if (hr >= 5 && hr <= 11) {
+            document.getElementById('time').style.backgroundImage = "url(morning.jpg)";
+            document.getElementById('min1txt').style.color = "red";
+            document.getElementById('hr1txt').style.color = "red";
+            document.getElementById('min2txt').style.color = "red";
+            document.getElementById('hr2txt').style.color = "red";
+            document.getElementById('sec1txt').style.color = "white";
+            document.getElementById('sec2txt').style.color = "white";
+            document.getElementById('greetings').textContent = " Hello, Good Morning !!!";
+            document.getElementById('greetings').style.top = "77vh";
+            document.getElementById('greetings').style.color = "white";
+        }
+        else if (hr > 11 && hr <= 16) {
+            document.getElementById('sec1txt').style.color = "rgb(255,255,255,0.7)";
+            document.getElementById('sec2txt').style.color = "rgb(255,255,255,0.7)";
+            document.getElementById('greetings').textContent = " Hello, Good Afternoon !!!";
+            document.getElementById('greetings').style.top = "70vh";
+            document.getElementById('time').style.backgroundImage = "url(afternoon.jpg)";
+        }
+        else if (hr > 16 && hr < 19) {
+            document.getElementById('sec1txt').style.color = "rgb(255,255,255,0.7)";
+            document.getElementById('sec2txt').style.color = "rgb(255,255,255,0.7)";
+            document.getElementById('greetings').textContent = " Hello, Good Evening !!!";
+            document.getElementById('greetings').style.top = "75vh";
+            document.getElementById('greetings').style.color = "white";
+            document.getElementById('v').style.background="white";
+            document.getElementById('time').style.backgroundImage = "url(evening.jpg)";
+        }
+        else {
+            document.getElementById('time').style.backgroundImage = "url(night.jpg)";
+            document.getElementById('sec1txt').style.color = "rgb(255,255,255,0.5)";
+            document.getElementById('sec2txt').style.color = "rgb(255,255,255,0.5)";
+            document.getElementById('time').style.color = "rgb(255,255,255,0.9)";
+            document.getElementById('greetings').textContent = " Hello, Good Night !!!";
+            document.getElementById('greetings').style.color = "black";
+            document.getElementById('min1txt').style.color = "yellow";
+            document.getElementById('hr1txt').style.color = "yellow";
+            document.getElementById('min2txt').style.color = "yellow";
+            document.getElementById('hr2txt').style.color = "yellow";
+            document.getElementById('greetings').style.top = "72vh";
+
+        }
+
+        // seconds
+
+
+        if (window.matchMedia("(max-width: 450px)").matches) {
+            if (sec < 10)
+                document.getElementById('sec1txt').textContent = ' 0' + sec + ' 0' + sec + ' 0' + sec + ' 0' + sec + ' 0'+ sec + ' ' ;
+            else if (sec <= 30)
+                document.getElementById('sec1txt').textContent = ' ' + sec + ' ' + sec + ' ' + sec + ' ' + sec + ' '+ sec + ' ' ;
+            else
+                document.getElementById('sec2txt').textContent = ' ' + sec + ' ' + sec + ' ' + sec + ' ' + sec + ' '+ sec + ' ';
+        } else {
+            if (sec < 10)
+                document.getElementById('sec1txt').textContent = ' 0' + sec + ' 0' + sec + ' 0' + sec + ' 0' + sec + ' 0' + sec + ' 0' + sec + ' ';
+            else if (sec <= 30)
+                document.getElementById('sec1txt').textContent = ' ' + sec + ' ' + sec + ' ' + sec + ' ' + sec + ' ' + sec + ' ' + sec + ' ';
+            else
+                document.getElementById('sec2txt').textContent = ' ' + sec + ' ' + sec + ' ' + sec + ' ' + sec + ' ' + sec + ' ' + sec + ' ';
+        }
+
+
+
+        var angle = sec * 6 - 90;
+        if (sec <= 30) {
+            document.getElementById('sec2txt').style.display = "none";
+            document.getElementById('sec1txt').style.display = "block";
+            document.getElementById('sec1txt').style.transform = "rotate(" + angle + "deg)";
+        }
+        else {
+            document.getElementById('sec1txt').style.display = "none";
+            document.getElementById('sec2txt').style.display = "block";
+            document.getElementById('sec2txt').style.transform = "rotate(" + angle + "deg) rotateZ(180deg)";
+        }
+
+        // minutes
+        if (window.matchMedia("(max-width: 450px)").matches) {
+
+            if (min < 10)
+                document.getElementById('min1txt').textContent = ' 0' + min + ' 0' + min + ' 0' + min + ' 0' + min + ' 0'+ min + ' ';
+            else if (min < 30)
+                document.getElementById('min1txt').textContent = ' ' + min + ' ' + min + ' ' + min + ' ' + min + ' '+ min + ' ';
+            else
+                document.getElementById('min2txt').textContent = ' ' + min + ' ' + min + ' ' + min + ' ' + min + ' '+ min + ' ';
+        }
+        else {
+            if (min < 10)
+                document.getElementById('min1txt').textContent = ' 0' + min + ' 0' + min + ' 0' + min + ' 0' + min + ' 0' + min + ' 0' + min + ' ';
+            else if (min < 30)
+                document.getElementById('min1txt').textContent = ' ' + min + ' ' + min + ' ' + min + ' ' + min + ' ' + min + ' ' + min + ' ';
+            else
+                document.getElementById('min2txt').textContent = ' ' + min + ' ' + min + ' ' + min + ' ' + min + ' ' + min + ' ' + min + ' ';
+        }
+        var angle = min * 6 - 90 + sec * 0.1;
+        if (min < 30) {
+            document.getElementById('min2txt').style.display = "none";
+            document.getElementById('min1txt').style.display = "block";
+            document.getElementById('min1txt').style.transform = "rotate(" + angle + "deg)";
+        }
+        else {
+            document.getElementById('min1txt').style.display = "none";
+            document.getElementById('min2txt').style.display = "block";
+            document.getElementById('min2txt').style.transform = "rotate(" + angle + "deg) rotateZ(180deg)";
+        }
+
+
+        // hour
+        if (hr > 12)
+            hr = hr - 12;
+        if (hr == 0)
+            hr = 12;
+        if (window.matchMedia("(max-width: 450px)").matches) {
+            if (hr < 6)
+                document.getElementById('hr1txt').textContent = ' 0' + hr + ' 0' + hr + ' 0' + hr ;
+            else if (hr <= 9)
+                document.getElementById('hr2txt').textContent = ' 0' + hr + ' 0' + hr + ' 0' + hr ;
+            else
+                document.getElementById('hr2txt').textContent = ' ' + hr + ' ' + hr + ' ' + hr ;
+        }
+        else {
+            if (hr < 6)
+                document.getElementById('hr1txt').textContent = ' 0' + hr + ' 0' + hr + ' 0' + hr + ' 0' + hr;
+            else if (hr <= 9)
+                document.getElementById('hr2txt').textContent = ' 0' + hr + ' 0' + hr + ' 0' + hr + ' 0' + hr;
+            else
+                document.getElementById('hr2txt').textContent = ' ' + hr + ' ' + hr + ' ' + hr + ' ' + hr;
+        }
+        var hrangle = -90 + hr * 30 + min * 0.5;
+        if (hr < 6) {
+            document.getElementById('hr2txt').style.display = "none";
+            document.getElementById('hr1txt').style.display = "block";
+            document.getElementById('hr1txt').style.transform = "rotate(" + hrangle + "deg)";
+        }
+        else {
+            document.getElementById('hr1txt').style.display = "none";
+            document.getElementById('hr2txt').style.display = "block";
+            document.getElementById('hr2txt').style.transform = "rotate(" + hrangle + "deg) rotateZ(180deg)";
+        }
+
+    };
+    // window.onload=sound();
+
+</script>
+
+</html>
